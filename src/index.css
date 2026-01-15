@@ -1,0 +1,8 @@
+@import "tailwindcss";
+.active{
+  background-color: rgb(34, 113, 251);
+  color: white;
+}
+.openSidebar{
+  display: flex;
+}
