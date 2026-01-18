@@ -1,7 +1,7 @@
 export const navitems = [
   {
     label: "Dashboard",
-    to: "/dashboard"
+    to: "/"
   },
   {
     label: "Rooms",
