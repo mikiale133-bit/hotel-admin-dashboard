@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Routes } from 'react-router'
 import Layout from './components/layout/Layout'
-import Dashboard from './Pages/dashboard'
+import Dashboard from './Pages/Dashboard'
 import Rooms from './Pages/Rooms'
 import Bookings from './Pages/bookings'
 import Settings from './Pages/settings'
