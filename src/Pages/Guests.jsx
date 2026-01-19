@@ -1,15 +1,17 @@
 import React from 'react';
 import { useBookingStore } from "../store/useBookingStore";
-import { User, Calendar, DoorOpen, History, ArrowRight } from 'lucide-react';
+import { User, Calendar, DoorOpen, History, ArrowRight, X } from 'lucide-react';
 
 const Guests = () => {
   const history = useBookingStore((state) => state.history);
+  const clearHistory = useBookingStore((state) => state.clearHistory);
+  const removeHistory = useBookingStore((state) => state.removeHistory);
 
   return (
     <div className="max-w-7xl mx-auto mt-8 px-2 md:px-0">
       <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
         {/* Card Header */}
-        <div className="p-6 border-b border-slate-100 flex items-center justify-between bg-white">
+        <div className="p-5 border-b border-slate-100 flex items-center justify-between bg-white">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-slate-100 rounded-lg text-slate-600">
               <History size={20} />
@@ -19,7 +21,7 @@ const Guests = () => {
               <p className="text-xs text-slate-500 font-medium">History of completed stays</p>
             </div>
           </div>
-          <span className="bg-slate-100 text-slate-600 text-xs font-bold px-3 py-1 rounded-full">
+          <span className="bg-green-100 text-green-600 text-xs font-bold px-3 py-1 rounded-full">
             {history.length} Records
           </span>
         </div>
@@ -74,41 +76,58 @@ const Guests = () => {
         </div>
 
         {/* Mobile View: Timeline Cards */}
-        <div className="md:hidden divide-y divide-slate-100">
+        <div className="md:hidden divide-y divide-slate-200 bg-white">
           {history.length === 0 ? (
             <div className="p-8 text-center text-slate-400 text-sm">
               No guest history available yet.
             </div>
           ) : (
             history.map((h) => (
-              <div key={h.id} className="p-5 flex flex-col gap-3">
-                <div className="flex justify-between items-start">
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full bg-slate-50 text-slate-400 flex items-center justify-center font-bold text-sm border border-slate-100">
-                      {h.name?.charAt(0)}
+              <div key={h.id} className="px-2 flex flex-col gap-2 mb-1 bg-gray-50 ">
+                <div className="flex justify-between items-start bg-slate-150 p-2 rounded-xl">
+                  <div className=" items-center gap-3">
+                    <div className='flex items-center gap-3'> 
+                      <div className="w-9 h-9 rounded-full bg-slate-50 text-slate-500 flex items-center justify-center font-bold text-sm border border-slate-100">
+                        {h.name?.charAt(0)}                    
+                      </div>
+                      <div>
+                        <p className="font-bold text-slate-800 leading-tight">{h.name}</p>
+                      </div>
+                      
                     </div>
-                    <div>
-                      <p className="font-bold text-slate-800 leading-tight">{h.name}</p>
-                      <p className="text-[11px] text-slate-500 font-medium">Room {h.roomId}</p>
+
+                    <div className='flex gap-3 pl-12'>
+                      <p className="text-[11px] text-green-500 font-medium">Room {h.roomId}</p>
+                      <div className=" rounded-xl flex items-center gap-3 justify-between text-[11px] font-bold text-slate-500 uppercase tracking-tighter">
+                        <div className="flex gap-2 items-center">
+                          {h.date}
+                        </div>
+                        <ArrowRight size={14} className="text-green-500" />
+                        <div className="flex flex-col text-right">
+                          {h.checkOutDate}
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-                
-                <div className="bg-slate-50 rounded-xl p-3 flex items-center justify-between text-[11px] font-bold text-slate-500 uppercase tracking-tighter">
-                  <div className="flex flex-col">
-                    <span className="text-[9px] text-slate-400 mb-1">Check In</span>
-                    {h.date}
-                  </div>
-                  <ArrowRight size={14} className="text-slate-300" />
-                  <div className="flex flex-col text-right">
-                    <span className="text-[9px] text-slate-400 mb-1">Check Out</span>
-                    {h.checkOutDate}
-                  </div>
+                  <button  onClick={() => removeHistory(h.id)}
+                  className={`text-white bg-rose-600 text-whi hover:bg-rose-700 shadoshadow-rose-200
+                    cursor-not-allowed}`}>
+                    <X className='' size={13}/>
+                  </button>
                 </div>
               </div>
             ))
           )}
+          
         </div>
+      </div>
+      <button  onClick={clearHistory}
+        disabled={history.length === 0}
+        className={`text-white ${history.length > 0 ? "bg-rose-600 text-whi hover:bg-rose-700 shadoshadow-rose-200"
+        : "bg-slate-200 text-slate-400 cursor-not-allowed"}`}>
+          <X className='' size={13}/>
+        </button>
+        <div>
       </div>
     </div>
   );

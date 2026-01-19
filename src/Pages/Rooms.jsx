@@ -26,7 +26,7 @@ const Rooms = () => {
         <p className="text-slate-500 mt-2 font-medium">Find and book your perfect stay.</p>
       </div>
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      <div className="max-w-7xl mx-auto grid max-sm:grid-cols-1 grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
         {rooms.map((room) => {
           const isAvailable = room.status === 'available';
           
@@ -93,7 +93,7 @@ const Rooms = () => {
 
               {/* Subtle background decoration for available rooms */}
               {isAvailable && (
-                <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-indigo-50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity -z-10" />
+                <div className="absolute right-4 bottom-4 w-24 h-24 bg-indigo-50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity -z-10" />
               )}
             </div>
           );

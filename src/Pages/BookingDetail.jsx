@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from "react";
+import { useBookingStore } from "../store/useBookingStore";
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Edit3, Save, X, User, MapPin, Phone, Mail, DoorOpen } from 'lucide-react';
 
@@ -8,25 +9,28 @@ const BookingDetail = () => {
   
   // State to toggle between view and edit mode
   const [isEditing, setIsEditing] = useState(false);
-  
-  // Mock initial data (In reality, fetch this from your store using the 'id')
-  const [booking, setBooking] = useState({
-    id: id,
-    guestName: "Abebe Balcha",
-    phone: "+251 911 22 33 44",
-    email: "abebe@example.com",
-    location: "Addis Ababa, Kebelle 03",
-    roomName: "101",
-    status: "occupied",
-    checkIn: "2026-01-15"
-  });
+  const bookingFromStore = useBookingStore(
+    (state) => state.bookings.find((b) => b.id === id)
+  );
+  const updateBooking = useBookingStore((state) => state.updateBooking);
+  const [booking, setBooking] = useState(null);
+
+  useEffect(() => {
+    if (bookingFromStore) {
+      setBooking(bookingFromStore);
+    }
+  }, [bookingFromStore]);
 
   const handleSave = () => {
-    // Logic: Update your global state or database here
+    updateBooking(id, booking); // ✅ update Zustand
     setIsEditing(false);
-    console.log("Updated Booking:", booking);
+    navigate("/bookings");      // or navigate(-1)
   };
 
+  if (!booking) {
+    return <p className="text-center mt-10">Booking not found</p>;
+  }
+  
   return (
     <div className="p-8 max-w-4xl mx-auto">
       {/* Header Navigation */}

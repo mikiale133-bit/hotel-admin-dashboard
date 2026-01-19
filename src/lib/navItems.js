@@ -1,22 +1,28 @@
+import { Bed, BookIcon, LayoutDashboard, Settings, User2 } from "lucide-react";
 export const navitems = [
   {
     label: "Dashboard",
-    to: "/"
+    to: "/",
+    icon: LayoutDashboard
   },
   {
     label: "Rooms",
-    to: "/rooms"
+    to: "/rooms",
+    icon: Bed
   },
   {
     label: "Bookings",
-    to: "/bookings"
+    to: "/bookings",
+    icon: BookIcon
   },
   {
     label: "Guests",
-    to: "/guests"
+    to: "/guests",
+    icon: User2
   },
   {
     label: "Settings",
-    to: "/settings"
+    to: "/settings",
+    icon: Settings
   },
 ]

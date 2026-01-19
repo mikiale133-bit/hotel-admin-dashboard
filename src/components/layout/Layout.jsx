@@ -8,7 +8,7 @@ const Layout = () => {
   const [isOpen, setIsOpen] = useState(false)
   return (
     <div className='flex w-full'>
-      <h2 onClick={() => setIsOpen(!isOpen)} className={`${isOpen ? "ml-40  right-0" : "text-red-500"} fixed mt-3  z-1000 left-1`}>  
+      <h2 onClick={() => setIsOpen(!isOpen)} className={`${isOpen ? "ml-40  right-0 w-7 h-7 rounded-full cursor-pointer bg-blue-500 text-white flex justify-center items-center" : "text-white mt-5"} fixed mt-2  z-1000 left-1`}>  
         {isOpen ? <X size={25} /> : <MenuIcon />}
       </h2>
       <div className={`${isOpen ? "w-50 transition" : "w-0 -translate-x-100 transition"} transition max-sm:fixed z-100 sticky top-0 left-0`}>
@@ -19,7 +19,7 @@ const Layout = () => {
         <div className=''>
           <Navbar />
         </div>
-        <div className='pt-9'>
+        <div className='pt-13'>
         <Outlet />
         </div>
       </div>

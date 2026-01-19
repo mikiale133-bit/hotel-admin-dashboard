@@ -5,12 +5,21 @@ export const useBookingStore = create(
   persist(
     (set) => ({
       rooms: [
-        { id: '101', name: "Room 101", status: "available", price: 100 },
-        { id: '102', name: "Room 102", status: "available", price: 120 },
-        { id: '103', name: "Room 103", status: "available", price: 150 },
-      ],
+        { id: '101', name: "Room 101", status: "available", price: 100 },   
+        { id: '102', name: "Room 102", status: "available", price: 120 }, 
+        { id: '103', name: "Room 103", status: "available", price: 150 },  
+        { id: '104', name: "Room 104", status: "available", price: 160 },  
+        { id: '105', name: "Room 105", status: "available", price: 170 },  
+        { id: '106', name: "Room 106", status: "available", price: 170 },  
+        { id: '107', name: "Room 107", status: "available", price: 170 },  
+      ],  
       bookings: [],
       history: [], // New array for completed stays
+      clearHistory: () => set({ history: [] }), // ✅ NEW
+      removeHistory: (historyId) =>
+        set((state) => ({
+          history: state.history.filter((h) => h.id !== historyId),
+        })),
 
       checkOut: (bookingId, roomId) => set((state) => {
         const bookingToFinish = state.bookings.find(b => b.id === bookingId);
@@ -38,7 +47,7 @@ export const useBookingStore = create(
         bookings: state.bookings.map(b => b.id === id ? { ...b, ...updatedData } : b)
       })),
 
-      // Add this inside your store's set() logic
+      
       cancelBooking: (bookingId, roomId) => set((state) => ({
         // 1. Remove the booking from the list
         bookings: state.bookings.filter(b => b.id !== bookingId),
